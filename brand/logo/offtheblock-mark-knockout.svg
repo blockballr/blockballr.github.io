@@ -1,0 +1,6 @@
+<!-- Drawn from brand/geometry.py. Do not hand-edit.
+     Regenerate with: python brand/build-marks.py -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="OffTheBlock">
+  <title>OffTheBlock</title>
+  <g transform="translate(39.052 24.948)"><path d="M-36,0 L-16,0 L-16,16 L0,16 L0,36 L-36,36 Z" fill="#F0EEE9"/><path d="M6.3708,-21.8955 L21.8955,-18.0247 L18.0247,-2.5000 L2.5000,-6.3708 Z" fill="#FF5C8D"/></g>
+</svg>

@@ -1,0 +1,105 @@
+/* OffTheBlock design tokens.
+ *
+ * Import this once and read colours through the custom properties rather than
+ * hardcoding hex values. The dark theme responds both to the operating system
+ * preference and to a data-theme attribute on the root element, so a manual
+ * toggle can override the system.
+ *
+ * Regenerate the fonts with: python brand/build-fonts.py
+ */
+
+@font-face {
+  font-family: "Chivo";
+  src: url("fonts/Chivo-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/JetBrainsMono-Variable.woff2") format("woff2-variations");
+  font-weight: 100 800;
+  font-display: swap;
+}
+
+:root {
+  /* The three that are the identity. */
+  --otb-asphalt: #14161b;
+  --otb-chalk: #f0eee9;
+  --otb-signal: #e4326b;
+
+  /* Grounds and support. */
+  --otb-night: #0b0c0f;
+  --otb-white: #ffffff;
+  --otb-slate: #5e6673;
+
+  /* Lifted for dark grounds. The base values go heavy against near-black. */
+  --otb-signal-lift: #ff5c8d;
+  --otb-slate-lift: #9aa1ac;
+  --otb-asphalt-lift: #eaebee;
+
+  /* Semantic colour is deliberately not drawn from signal. Signal means "this is
+   * the alpha". If it also meant "this worked", a filled order and a fresh call
+   * would be the same colour. */
+  --otb-good: #2e9e6b;
+  --otb-warn: #c98a12;
+  --otb-bad: #d1453b;
+
+  /* Roles. Everything in an app should reach for these, not the raw colours. */
+  --otb-bg: var(--otb-chalk);
+  --otb-surface: var(--otb-white);
+  --otb-line: #dbd8d1;
+  --otb-text: var(--otb-asphalt);
+  --otb-text-dim: var(--otb-slate);
+  --otb-accent: var(--otb-signal);
+
+  --otb-font-display: "Chivo", system-ui, sans-serif;
+  --otb-font-body: "Inter", system-ui, sans-serif;
+  --otb-font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Type. The wordmark's tracking, kept here so headings agree with the logo. */
+  --otb-track-display: -0.022em;
+
+  --otb-radius: 4px;      /* the mark has hard corners; the UI stays close to it */
+  --otb-radius-lg: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --otb-bg: var(--otb-night);
+    --otb-surface: #14161b;
+    --otb-line: #262a31;
+    --otb-text: var(--otb-chalk);
+    --otb-text-dim: var(--otb-slate-lift);
+    --otb-accent: var(--otb-signal-lift);
+  }
+}
+
+:root[data-theme="dark"] {
+  --otb-bg: var(--otb-night);
+  --otb-surface: #14161b;
+  --otb-line: #262a31;
+  --otb-text: var(--otb-chalk);
+  --otb-text-dim: var(--otb-slate-lift);
+  --otb-accent: var(--otb-signal-lift);
+}
+
+/* Numbers that line up in a column. A price list or a payout table jitters as its
+ * digits change without this. */
+.otb-num {
+  font-family: var(--otb-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Contract addresses. The reason the mono face is JetBrains Mono and not a
+ * decorative one: a slashed zero and an unmistakable 1, l and I. */
+.otb-addr {
+  font-family: var(--otb-font-mono);
+  font-feature-settings: "zero" 1;
+  word-break: break-all;
+}

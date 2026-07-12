@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OffTheBlock</title>
+<meta name="description" content="Web3 alpha and skill-based earning. For active builders and earners only. Off the block is where it gets said before it lands.">
+<link rel="icon" href="img/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<!-- A link preview is the first thing anyone sees of this site, because the way
+     people arrive is somebody pasting it into a Telegram room. Scrapers do not
+     resolve relative URLs and they do not read SVG, so og:image is an absolute
+     URL to a PNG. Rebuild it with: python brand/build-og.py -->
+<link rel="canonical" href="https://blockballr.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OffTheBlock">
+<meta property="og:url" content="https://blockballr.github.io/">
+<meta property="og:title" content="OffTheBlock">
+<meta property="og:description" content="Pure signal. Zero noise. For active builders and earners only.">
+<meta property="og:image" content="https://blockballr.github.io/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="OffTheBlock. Before it hits the block.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@blockballr">
+<meta name="twitter:title" content="OffTheBlock">
+<meta name="twitter:description" content="Pure signal. Zero noise. For active builders and earners only.">
+<meta name="twitter:image" content="https://blockballr.github.io/img/og.png">
+<meta name="theme-color" content="#0b0c0f">
+
+<style>
+@font-face{font-family:"Chivo";src:url("fonts/Chivo-Variable.woff2") format("woff2-variations");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Inter";src:url("fonts/Inter-Variable.woff2") format("woff2-variations");font-weight:100 900;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url("fonts/JetBrainsMono-Variable.woff2") format("woff2-variations");font-weight:100 800;font-display:swap}
+
+:root{
+  --asphalt:#14161b; --chalk:#f0eee9; --signal:#e4326b;
+  --night:#0b0c0f; --slate:#5e6673;
+  --signal-lift:#ff5c8d; --slate-lift:#9aa1ac;
+
+  --bg:var(--night); --surface:#14161b; --line:#262a31;
+  --text:var(--chalk); --dim:var(--slate-lift); --accent:var(--signal-lift);
+
+  --display:"Chivo",system-ui,sans-serif;
+  --body:"Inter",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --track:-0.022em;
+  --pad:clamp(20px,5vw,40px);
+}
+:root[data-theme="light"]{
+  --bg:var(--chalk); --surface:#fff; --line:#dbd8d1;
+  --text:var(--asphalt); --dim:var(--slate); --accent:var(--signal);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:var(--body); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+/* The one piece of atmosphere on the page: a single soft bloom behind the hero,
+   in the accent, so the top of the page has a light source and the rest is flat. */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:radial-gradient(680px 420px at 50% -8%, rgba(255,92,141,.13), transparent 70%);
+}
+.wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 var(--pad)}
+
+a{color:inherit}
+h1,h2,h3{font-family:var(--display); letter-spacing:var(--track); font-weight:800; margin:0; line-height:1.1}
+
+/* ---------------------------------------------------------------- header */
+header{display:flex; align-items:center; justify-content:space-between; padding:26px 0 0}
+.logo{display:flex; align-items:center; gap:14px; text-decoration:none}
+.logo svg{display:block; height:38px; width:auto}
+.logo .name{font-family:var(--display); font-weight:800; font-size:23px; letter-spacing:var(--track)}
+.theme{
+  background:none; border:1px solid var(--line); color:var(--dim);
+  width:36px; height:36px; border-radius:4px; cursor:pointer;
+  display:grid; place-items:center; transition:border-color .18s, color .18s;
+}
+.theme:hover{border-color:var(--accent); color:var(--text)}
+.theme svg{width:17px; height:17px}
+
+/* ---------------------------------------------------------------- hero */
+.hero{padding:clamp(56px,11vw,110px) 0 clamp(40px,7vw,72px); text-align:center}
+.hero .mark{height:clamp(78px,13vw,116px); width:auto; margin:0 auto 34px; display:block}
+.hero h1{
+  font-size:clamp(38px,7.4vw,74px);
+  /* the strapline is the name explained: a block is the settled, public thing, and
+     the alpha is what has not landed on it yet */
+}
+.hero h1 .off{color:var(--accent)}
+.lede{
+  margin:20px auto 0; max-width:44ch; color:var(--dim);
+  font-size:clamp(16px,2.1vw,19px);
+}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--accent); margin:0 0 22px;
+}
+
+/* ---------------------------------------------------------------- panel */
+.panel{
+  border:1px solid var(--line); border-radius:10px; background:var(--surface);
+  padding:clamp(26px,4.5vw,40px); text-align:center; margin:0 auto; max-width:660px;
+}
+.panel h2{font-size:clamp(20px,3.2vw,27px)}
+.panel p{margin:14px 0 0; color:var(--dim)}
+.panel .b{color:var(--text); font-weight:600}
+.panel .fine{
+  margin-top:18px; font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+  color:var(--slate); text-transform:uppercase;
+}
+
+/* ---------------------------------------------------------------- buttons */
+.cta{display:flex; flex-direction:column; gap:12px; max-width:660px; margin:22px auto 0}
+.btn{
+  display:flex; align-items:center; justify-content:center; gap:11px;
+  padding:16px 22px; border-radius:8px; text-decoration:none;
+  font-family:var(--display); font-weight:700; font-size:16px; letter-spacing:-.01em;
+  border:1px solid var(--line); background:var(--surface); color:var(--text);
+  transition:transform .16s cubic-bezier(.2,.7,.3,1), border-color .16s, background .16s;
+}
+.btn svg{width:18px; height:18px; flex:none}
+.btn:hover{transform:translateY(-2px); border-color:#3a404a}
+.btn-primary{
+  background:var(--signal); border-color:var(--signal); color:#fff;
+}
+:root[data-theme="dark"] .btn-primary{background:var(--signal); border-color:var(--signal)}
+.btn-primary:hover{background:var(--signal-lift); border-color:var(--signal-lift)}
+
+/* ---------------------------------------------------------------- projects */
+.section{padding:clamp(64px,10vw,110px) 0 0}
+.section-head{display:flex; align-items:baseline; justify-content:space-between; gap:20px; margin-bottom:8px}
+.section-head h2{font-size:clamp(24px,4vw,34px)}
+.section-head .by{
+  font-family:var(--mono); font-size:12px; color:var(--dim); letter-spacing:.04em;
+}
+.section-head .by a{color:var(--accent); text-decoration:none}
+.section-head .by a:hover{text-decoration:underline}
+.section-sub{color:var(--dim); margin:0 0 34px; max-width:56ch}
+
+.grid{display:grid; gap:26px; grid-template-columns:1fr}
+@media(min-width:820px){ .grid{grid-template-columns:1fr 1fr} .grid .wide{grid-column:1/-1} }
+
+.card{
+  display:block; text-decoration:none; border:1px solid var(--line); border-radius:12px;
+  background:var(--surface); overflow:hidden;
+  transition:transform .2s cubic-bezier(.2,.7,.3,1), border-color .2s;
+}
+.card:hover{transform:translateY(-4px); border-color:#3a404a}
+.card:hover .visit{color:var(--accent)}
+.card:hover .shot{transform:scale(1.02)}
+
+/* the browser window that holds a live project */
+.chrome{
+  background:#0e1116; border-bottom:1px solid var(--line);
+  display:flex; align-items:center; gap:8px; padding:9px 12px;
+}
+.dots{display:flex; gap:5px}
+.dots i{width:9px; height:9px; border-radius:50%; background:#2c313a; display:block}
+.bar{
+  flex:1; background:#14171d; border:1px solid #22262e; border-radius:4px;
+  font-family:var(--mono); font-size:11px; color:var(--slate-lift);
+  padding:3px 9px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
+}
+.live{
+  display:inline-flex; align-items:center; gap:5px; flex:none;
+  font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+  color:#4ad07f;
+}
+.live::before{content:""; width:6px; height:6px; border-radius:50%; background:#4ad07f}
+
+.frame{aspect-ratio:16/10; overflow:hidden; background:var(--night)}
+.shot{width:100%; height:100%; object-fit:cover; object-position:top left; display:block;
+  transition:transform .35s cubic-bezier(.2,.7,.3,1)}
+
+.art{aspect-ratio:16/10; overflow:hidden; border-bottom:1px solid var(--line)}
+.art img{width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .35s cubic-bezier(.2,.7,.3,1)}
+.card:hover .art img{transform:scale(1.03)}
+
+.meta{padding:20px 22px 22px}
+.meta h3{font-size:20px; display:flex; align-items:center; gap:10px}
+.tag{
+  font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--dim); border:1px solid var(--line); border-radius:3px; padding:2px 6px;
+  font-weight:400; letter-spacing:.08em;
+}
+.meta p{margin:9px 0 0; color:var(--dim); font-size:15px}
+.foot{display:flex; align-items:center; justify-content:space-between; margin-top:16px}
+.stack{display:flex; gap:7px; flex-wrap:wrap}
+.stack span{
+  font-family:var(--mono); font-size:11px; color:var(--slate-lift);
+  background:rgba(255,255,255,.035); border:1px solid var(--line);
+  border-radius:3px; padding:2px 7px;
+}
+:root[data-theme="light"] .stack span{background:rgba(0,0,0,.03)}
+.visit{
+  font-family:var(--mono); font-size:12px; color:var(--dim); flex:none;
+  transition:color .2s;
+}
+
+/* ---------------------------------------------------------------- terminal */
+.term{
+  margin:clamp(64px,10vw,110px) auto 0; max-width:720px;
+  border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  background:#0e1116; box-shadow:0 20px 60px -30px rgba(0,0,0,.8);
+}
+.term-head{
+  display:flex; align-items:center; gap:10px; padding:10px 13px;
+  background:#101319; border-bottom:1px solid var(--line);
+}
+.term-head .t{
+  font-family:var(--mono); font-size:12px; color:var(--slate-lift); flex:1;
+}
+.term-body{
+  padding:18px 18px 20px; font-family:var(--mono); font-size:13.5px; line-height:1.85;
+  min-height:232px;
+}
+@media(max-width:520px){ .term-body{font-size:12px} }
+.term .ln{white-space:pre-wrap; word-break:break-word}
+.term .ps{color:var(--accent); font-weight:600}
+.term .cmd{color:var(--chalk)}
+.term .out{color:var(--slate-lift)}
+.term .ok{color:#4ad07f}
+.term .cur{
+  display:inline-block; width:8px; height:15px; background:var(--chalk);
+  vertical-align:-2px; margin-left:2px; animation:blink 1.05s steps(1) infinite;
+}
+@keyframes blink{50%{opacity:0}}
+
+/* ---------------------------------------------------------------- footer */
+footer{
+  margin-top:clamp(56px,9vw,90px); padding:30px 0 44px;
+  border-top:1px solid var(--line);
+  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+}
+footer .c{font-family:var(--mono); font-size:12px; color:var(--slate)}
+footer nav{display:flex; gap:20px}
+footer nav a{
+  font-family:var(--mono); font-size:12px; color:var(--dim); text-decoration:none;
+}
+footer nav a:hover{color:var(--accent)}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:3px}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none !important; transition:none !important}
+  .card:hover{transform:none}
+  .btn:hover{transform:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <a class="logo" href="/" aria-label="OffTheBlock">
+    <!-- the mark: a block with one piece off it -->
+    <svg viewBox="0 0 57.90 57.90" aria-hidden="true">
+      <g transform="translate(36.0000 21.8955)">
+        <path d="M-36,0 L-16,0 L-16,16 L0,16 L0,36 L-36,36 Z" fill="var(--text)"/>
+        <path d="M6.3708,-21.8955 L21.8955,-18.0247 L18.0247,-2.5000 L2.5000,-6.3708 Z" fill="var(--accent)"/>
+      </g>
+    </svg>
+    <span class="name">OffTheBlock</span>
+  </a>
+  <button class="theme" id="theme" aria-label="Switch theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M19 5l-1.4 1.4M6.4 17.6L5 19"/>
+    </svg>
+  </button>
+</header>
+
+<section class="hero">
+  <p class="eyebrow">Pure signal. Zero noise.</p>
+  <h1>Before it hits <br>the <span class="off">block</span>.</h1>
+  <p class="lede">
+    A block is the settled thing. Public, final, already priced in.
+    Alpha is what has not landed on it yet. This is the room where it gets said first.
+  </p>
+</section>
+
+<div class="panel">
+  <h2>Web3 alpha &amp; skill-based earning</h2>
+  <p>For active <span class="b">builders</span> and <span class="b">earners</span> only.</p>
+  <p class="fine">High integrity network</p>
+</div>
+
+<div class="cta">
+  <a class="btn btn-primary" href="https://t.me/+ymcxwhyY_B5iNGJk">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.9 19c-.2 1-.8 1.3-1.7.8l-4.6-3.4-2.2 2.1c-.2.3-.5.5-1 .5l.3-4.7L18.3 6c.4-.3-.1-.5-.6-.2L7.1 12.5l-4.5-1.4c-1-.3-1-1 .2-1.5l17.6-6.8c.8-.3 1.5.2 1.5 1.5z"/></svg>
+    Join the community
+  </a>
+  <a class="btn" href="https://twitter.com/blockballr">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93ZM17.6 20.64h2.04L6.49 3.24H4.3Z"/></svg>
+    Follow Blockballr on X
+  </a>
+</div>
+
+<section class="section" id="work">
+  <div class="section-head">
+    <h2>The work</h2>
+    <p class="by">built by <a href="https://github.com/blockballr">@blockballr</a></p>
+  </div>
+  <p class="section-sub">
+    Agentic engineering, security tooling, and web apps. Live ones you can open.
+    The rest are on GitHub.
+  </p>
+
+  <div class="grid">
+
+    <!-- LIVE: a real preview window, clickable through to the deployment -->
+    <a class="card wide" href="https://handgloss.vercel.app" target="_blank" rel="noopener">
+      <div class="chrome">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div class="bar">handgloss.vercel.app</div>
+        <span class="live">Live</span>
+      </div>
+      <div class="frame">
+        <img class="shot" src="img/handgloss.png" alt="HandGloss: a 3D hand signing ASL in the browser" loading="lazy" width="1280" height="800">
+      </div>
+      <div class="meta">
+        <h3>HandGloss <span class="tag">Live</span></h3>
+        <p>
+          A speech-to-ASL engine. Speak or type, and a parametric signer fingerspells
+          what it does not know. Everything runs in the browser, no server round trip.
+        </p>
+        <div class="foot">
+          <div class="stack"><span>JavaScript</span><span>Web Speech API</span><span>Three.js</span></div>
+          <span class="visit">Open &rarr;</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- NOT DEPLOYED: art in the mark's own geometry, clickable through to source -->
+    <a class="card" href="https://github.com/blockballr/Radar" target="_blank" rel="noopener">
+      <div class="art">
+        <img src="img/art-radar.svg" alt="A field of blocks at rest, a sweep passing over them, and the one that is not like the others gone hot" loading="lazy">
+      </div>
+      <div class="meta">
+        <h3>Radar <span class="tag">Source</span></h3>
+        <p>
+          A free Solana screener and signal agent on Telegram. It sweeps the field and
+          tells you which one moved before you would have looked.
+        </p>
+        <div class="foot">
+          <div class="stack"><span>Python</span><span>Solana</span><span>Telegram</span></div>
+          <span class="visit">GitHub &rarr;</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="card" href="https://github.com/offtheblockmain/OffTheBlockBot" target="_blank" rel="noopener">
+      <div class="art">
+        <img src="img/art-otbbot.svg" alt="A stream of messages at rest, and the one worth having pulled out of the flow" loading="lazy">
+      </div>
+      <div class="meta">
+        <h3>OffTheBlockBot <span class="tag">Source</span></h3>
+        <p>
+          The bot that runs the room. It watches the stream and pulls out the one
+          message that was worth having.
+        </p>
+        <div class="foot">
+          <div class="stack"><span>Telegram</span><span>Bot</span></div>
+          <span class="visit">GitHub &rarr;</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<div class="term" id="term">
+  <div class="term-head">
+    <div class="dots"><i></i><i></i><i></i></div>
+    <span class="t">blockballr@otb: ~</span>
+  </div>
+  <div class="term-body" id="termBody" aria-label="Terminal session" role="img"></div>
+</div>
+
+<footer>
+  <span class="c">&copy; 2026 OffTheBlock.</span>
+  <nav>
+    <a href="https://t.me/+ymcxwhyY_B5iNGJk">Telegram</a>
+    <a href="https://twitter.com/blockballr">X</a>
+    <a href="https://github.com/blockballr">GitHub</a>
+  </nav>
+</footer>
+
+</div>
+
+<script>
+/* ------------------------------------------------------------------ theme */
+(function () {
+  var root = document.documentElement, key = 'otb-theme';
+  var saved = null;
+  try { saved = localStorage.getItem(key); } catch (e) {}
+  if (saved) root.setAttribute('data-theme', saved);
+  document.getElementById('theme').addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem(key, next); } catch (e) {}
+  });
+})();
+
+/* ------------------------------------------------------------- terminal
+ * The old one typed a line, filled a fake progress bar, and admitted it could not
+ * think of anything to write. This one runs a session that actually says what the
+ * room is: who is here, what the rule is, what is shipped, and what it is watching
+ * for. The progress bar is kept, because it was the good part, but it now belongs
+ * to a command that has a reason to take a moment.
+ *
+ * It does not start until it is scrolled into view, it stops when it scrolls away,
+ * and it does not run at all for a reader who has asked for reduced motion: for
+ * them the finished session is simply printed.
+ */
+(function () {
+  var body = document.getElementById('termBody');
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var script = [
+    { cmd: 'whoami' },
+    { out: 'blockballr - creative dev. builds agents, breaks things.' },
+    { cmd: 'cat rules.txt' },
+    { out: 'Execution is the only moat.', cls: 'chalk' },
+    { cmd: 'otb watch --alpha' },
+    { bar: 'scanning the block' },
+    { out: 'ok  3 signals. none of them are on it yet.', cls: 'ok' },
+    { cmd: '' }
+  ];
+
+  var PS = 'blockballr@otb:~$';
+  var SPEED = 42, LINE_PAUSE = 340, HOLD = 6000;
+
+  function esc(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  function render(lines, tail) {
+    body.innerHTML = lines.map(function (h) { return '<div class="ln">' + h + '</div>'; }).join('')
+      + (tail !== undefined ? '<div class="ln">' + tail + '</div>' : '');
+  }
+
+  var running = false, stop = false;
+
+  async function run() {
+    if (running) return;
+    running = true; stop = false;
+    var lines = [];
+    for (var i = 0; i < script.length; i++) {
+      var step = script[i];
+      if (stop) break;
+
+      if (step.cmd !== undefined) {
+        // type the command out, one character at a time, cursor riding the end
+        for (var c = 0; c <= step.cmd.length; c++) {
+          if (stop) break;
+          render(lines, '<span class="ps">' + PS + '</span> <span class="cmd">'
+            + esc(step.cmd.slice(0, c)) + '</span><span class="cur"></span>');
+          if (c < step.cmd.length) await sleep(SPEED);
+        }
+        if (step.cmd === '') { await sleep(HOLD); break; }   // final idle prompt
+        lines.push('<span class="ps">' + PS + '</span> <span class="cmd">'
+          + esc(step.cmd) + '</span>');
+        await sleep(LINE_PAUSE);
+
+      } else if (step.bar !== undefined) {
+        var N = 22;
+        for (var k = 0; k <= N; k++) {
+          if (stop) break;
+          var pct = Math.round(k / N * 100);
+          var fill = '='.repeat(k) + (k === N ? '' : '>') + ' '.repeat(N - k);
+          render(lines, '<span class="out">' + esc(step.bar) + ' [' + fill + '] '
+            + pct + '%</span>');
+          await sleep(38);
+        }
+        lines.push('<span class="out">' + esc(step.bar) + ' ['
+          + '='.repeat(N) + '] 100%</span>');
+        await sleep(LINE_PAUSE);
+
+      } else {
+        var cls = step.cls === 'ok' ? 'ok' : (step.cls === 'chalk' ? 'cmd' : 'out');
+        lines.push('<span class="' + cls + '">' + esc(step.out) + '</span>');
+        render(lines);
+        await sleep(LINE_PAUSE);
+      }
+    }
+    running = false;
+    if (!stop) { await sleep(400); if (!stop) run(); }       // loop the session
+  }
+
+  function printStill() {
+    var lines = script.map(function (s) {
+      if (s.cmd !== undefined) {
+        return s.cmd === ''
+          ? '<span class="ps">' + PS + '</span> <span class="cur"></span>'
+          : '<span class="ps">' + PS + '</span> <span class="cmd">' + esc(s.cmd) + '</span>';
+      }
+      if (s.bar !== undefined) {
+        return '<span class="out">' + esc(s.bar) + ' [' + '='.repeat(22) + '] 100%</span>';
+      }
+      var cls = s.cls === 'ok' ? 'ok' : (s.cls === 'chalk' ? 'cmd' : 'out');
+      return '<span class="' + cls + '">' + esc(s.out) + '</span>';
+    });
+    render(lines);
+  }
+
+  if (still) { printStill(); return; }
+
+  // Nothing animates off-screen. A typewriter nobody is looking at is just a timer
+  // holding the main thread open.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { run(); } else { stop = true; }
+      });
+    }, { threshold: 0.25 }).observe(document.getElementById('term'));
+  } else {
+    run();
+  }
+})();
+</script>
+</body>
+</html>

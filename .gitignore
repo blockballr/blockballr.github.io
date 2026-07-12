@@ -1,0 +1,7 @@
+# Build scratch. The brand scripts rasterise through Chrome, which needs a real
+# directory on disk to load a file:// page out of, and instance fonts to a temporary
+# TTF. None of that is output.
+__pycache__/
+*.pyc
+brand/.render/
+brand/.*.ttf
