@@ -1,7 +1,7 @@
 # OffTheBlock brand
 
-OffTheBlock is a room where alpha gets shared and the discussion happens. The
-identity comes back to one idea, and the name already contains it.
+OffTheBlock is blockballr's work and the place it is shown. The identity comes back
+to one idea, and the name already contains it.
 
 A block is the settled thing. It is public, it is final, and by the time something
 is on it, everyone already has it. Alpha is whatever has not hit the block yet.
@@ -56,12 +56,21 @@ each other in a sidebar of circular avatars. A brand that cannot be picked out o
 that list at sixteen pixels has failed at the only job the avatar has. Orange is
 warm, it is loud, and nobody in this market owns it.
 
-Signal is the strongest colour in the system, so spend it in one place at a time.
-It belongs on the tile and on the one thing on a screen that is the alpha. It does
-not belong on borders, headings, or general emphasis. Signal on chalk is a
-low-contrast pairing at 3.65 to 1. That is fine for the tile, which is a shape
-rather than something to be read, and fine for display type, but signal at body
-size on a light ground fails contrast. Set it large, or set it on asphalt.
+Signal has three values, because it has three jobs. `#FF5A1F` is the tile: a shape,
+which only has to be seen, so it stays hot on any ground. `#FF7A45` is signal on a
+dark ground, where the base value goes heavy against near-black. `#B33F0C` is the
+deepened value, and it is the only one that may be used for accent *text* on a light
+ground: the hot ember is 2.69 to 1 on chalk, which fails outright at body size, while
+the deep one is 4.99 and passes. A link nobody can read is not a brand decision, it
+is a bug.
+
+That split is why the site carries two variables rather than one. `--accent` is
+signal as text and has to hold contrast; `--tile` is signal as a shape in the mark
+and only has to be seen. They part company on the light theme and nowhere else.
+
+Signal is the strongest colour in the system, so spend it in one place at a time. It
+belongs on the tile and on the one thing on a screen that is the alpha. It does not
+belong on borders, headings, or general emphasis.
 
 Semantic colour for success, warning, and error is a separate concern and is not
 drawn from signal. Signal means "this is the alpha". If it also meant "this
@@ -78,9 +87,9 @@ humanist bowls would argue with it. Body and interface text are Inter, a plain
 workhorse. Anything that lines up in a column, and every contract address, is
 JetBrains Mono with `font-variant-numeric: tabular-nums`.
 
-The mono face is not decoration. This is a room where people paste contract
-addresses, and a mono with a slashed zero and an unmistakable 1, l, and I is the
-difference between reading an address and losing money to one.
+The mono face is not decoration. People paste contract addresses here, and a mono
+with a slashed zero and an unmistakable 1, l, and I is the difference between reading
+an address and losing money to one.
 
 All three are licensed under the SIL Open Font License, which permits commercial
 use and embedding. They are self-hosted in `brand/fonts` as woff2, so nothing

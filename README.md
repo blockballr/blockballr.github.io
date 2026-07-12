@@ -56,8 +56,9 @@ snippet and fails loudly if what is in the page no longer matches `geometry.py`.
 
 ## What is on the page
 
-The hero, the panel, and the two calls to action carry the existing copy. The
-strapline is the brand line, "Before it hits the block", which explains the name.
+The hero is the brand line, "Before it hits the block", which explains the name, and
+a first-person lede. This is one person's site, not a community's, so there is no
+panel selling a room to join: just the work, and two ways to reach him.
 
 The work section is driven by what is actually public on GitHub, and it treats a
 shipped project and an unshipped one differently on purpose.
