@@ -46,14 +46,15 @@ chalk is the ground, and signal is the piece that left. Nothing else appears ins
 the mark.
 
 Asphalt is `#14161B` and Chalk is `#F0EEE9`, a warm off-white rather than a pure
-one. Signal is `#E4326B`. On a dark ground signal is lifted to `#FF5C8D`, because
+one. Signal is `#FF5A1F`. On a dark ground signal is lifted to `#FF7A45`, because
 the base value goes heavy against near-black. Night, `#0B0C0F`, is the dark page
 ground. Slate, `#5E6673`, carries secondary text, and lifts to `#9AA1AC` on dark.
 
-Signal is hot pink, and that is a decision, not an accident. Every other room in
-this market is navy and green, which is why they are all invisible next to each
-other in a sidebar of circular avatars. A brand that cannot be picked out of that
-list at sixteen pixels has failed at the only job the avatar has.
+Signal is ember orange, and that is a decision, not an accident. Every other room in
+this market is navy, green, or violet, which is why they are all invisible next to
+each other in a sidebar of circular avatars. A brand that cannot be picked out of
+that list at sixteen pixels has failed at the only job the avatar has. Orange is
+warm, it is loud, and nobody in this market owns it.
 
 Signal is the strongest colour in the system, so spend it in one place at a time.
 It belongs on the tile and on the one thing on a screen that is the alpha. It does

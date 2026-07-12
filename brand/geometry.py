@@ -61,14 +61,22 @@ CIRCLE_SAFE = 0.707
 
 ASPHALT = "#14161B"
 CHALK = "#F0EEE9"
-SIGNAL = "#E4326B"
+SIGNAL = "#FF5A1F"
 SLATE = "#5E6673"
 WHITE = "#FFFFFF"
 
 NIGHT = "#0B0C0F"
 ASPHALT_LIFT = "#EAEBEE"
-SIGNAL_LIFT = "#FF5C8D"
+SIGNAL_LIFT = "#FF7A45"
 SLATE_LIFT = "#9AA1AC"
+
+# Signal has three values because it has three jobs, not because orange needed a
+# palette. SIGNAL is the tile: a shape, which only has to be seen, so it stays hot
+# on any ground. SIGNAL_LIFT is signal on a dark ground, where the base value goes
+# heavy. SIGNAL_DEEP is the only one for accent *text* on a light ground: at body
+# size, SIGNAL on CHALK is 2.69 to 1, which fails outright, and a link nobody can
+# read is not a brand decision, it is a bug.
+SIGNAL_DEEP = "#B33F0C"
 
 
 def extent(spec):
@@ -222,6 +230,8 @@ if __name__ == "__main__":
     print()
     pairs = [("SIGNAL", SIGNAL, "WHITE", WHITE),
              ("SIGNAL", SIGNAL, "CHALK", CHALK),
+             ("SIGNAL_DEEP", SIGNAL_DEEP, "CHALK", CHALK),
+             ("SIGNAL_DEEP", SIGNAL_DEEP, "WHITE", WHITE),
              ("SIGNAL_LIFT", SIGNAL_LIFT, "ASPHALT", ASPHALT),
              ("SIGNAL_LIFT", SIGNAL_LIFT, "NIGHT", NIGHT),
              ("ASPHALT", ASPHALT, "CHALK", CHALK),

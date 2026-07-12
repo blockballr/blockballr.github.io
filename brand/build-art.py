@@ -6,16 +6,16 @@ A project with nothing deployed has nothing to screenshot, so it gets a drawing
 instead of a preview. The drawings are not decoration and they are not stock: each
 one is the mark's own vocabulary, a field of blocks with one piece off the block,
 bent to say what that particular project does. Radar sweeps a field and lights the
-one that matters. The bot watches a stream of messages and pulls one out.
+one that matters.
 
 That constraint is the point. A card that says "no screenshot yet" is a hole in a
 page. A card drawn in the logo's own geometry is a card, and the site reads as one
-thing rather than a live project and two apologies.
+thing rather than a live project and an apology.
 """
 import math
 import pathlib
 
-from geometry import CHALK, NIGHT, SIGNAL_LIFT, SLATE, extent
+from geometry import NIGHT, SIGNAL_LIFT
 
 OUT = pathlib.Path(__file__).parent.parent / "img"
 
@@ -102,37 +102,5 @@ def radar():
     return "\n  ".join(parts)
 
 
-# ---------------------------------------------------------------- OffTheBlockBot
-# A bot watching a stream. Rows of messages, all the same, and one it pulls out of
-# the flow and hands to you.
-def bot():
-    parts = []
-    rows = [(0.62, 0.30), (0.42, 0.55), (0.78, 0.30), (0.34, 0.62), (0.55, 0.30),
-            (0.70, 0.45), (0.38, 0.30), (0.60, 0.52)]
-    y = 130
-    for i, (w, op) in enumerate(rows):
-        bar_w = 620 * w
-        parts.append(f'<rect x="180" y="{y}" width="{bar_w:.0f}" height="26" rx="3" '
-                     f'fill="{DIM}" opacity="{op:g}"/>')
-        # the little block that starts each message
-        parts.append(square(140, y - 1, 28, DIM, min(1, op + 0.12)))
-        y += 68
-
-    # the one it pulled: a message that has come off the stack and gone hot
-    px, py = 900, 300
-    parts.append(f'<path d="M840,352 C900,352 900,300 {px + 6},300" fill="none" '
-                 f'stroke="{SIGNAL_LIFT}" stroke-width="2" opacity="0.4" '
-                 f'stroke-dasharray="6 6"/>')
-    parts.append(f'<rect x="{px}" y="{py - 34}" width="300" height="120" rx="6" '
-                 f'fill="#171a21" stroke="{LINE}" stroke-width="1.5"/>')
-    parts.append(f'<rect x="{px + 26}" y="{py - 4}" width="190" height="14" rx="2" '
-                 f'fill="{CHALK}" opacity="0.75"/>')
-    parts.append(f'<rect x="{px + 26}" y="{py + 22}" width="130" height="14" rx="2" '
-                 f'fill="{SLATE}" opacity="0.7"/>')
-    parts.append(tile(px + 300, py - 34, 54, 14, SIGNAL_LIFT))
-    return "\n  ".join(parts)
-
-
 write("art-radar.svg", radar(), "Radar: a field of blocks, and the one that is not like the others")
-write("art-otbbot.svg", bot(), "OffTheBlockBot: a stream of messages, and the one worth having")
 print("art written to", OUT)

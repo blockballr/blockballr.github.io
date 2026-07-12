@@ -287,11 +287,12 @@ td.bad{{color:#c0392b}}
     </div>
   </div>
 
-  <h3>Why hot pink</h3>
-  <p>Every other room in this market is navy and green, which is why none of them
-  can be told apart in a sidebar of circular avatars. A brand that cannot be picked
-  out of that list at sixteen pixels has failed at the only job the avatar has.
-  Signal is a decision, not an accident.</p>
+  <h3>Why ember</h3>
+  <p>Every other room in this market is navy, green, or violet, which is why none of
+  them can be told apart in a sidebar of circular avatars. A brand that cannot be
+  picked out of that list at sixteen pixels has failed at the only job the avatar
+  has. Signal is a decision, not an accident: orange is warm, it is loud, and nobody
+  here owns it.</p>
 
   <h3>Contrast, checked rather than felt</h3>
   <table>

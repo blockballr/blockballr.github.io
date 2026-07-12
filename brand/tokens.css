@@ -31,7 +31,7 @@
   /* The three that are the identity. */
   --otb-asphalt: #14161b;
   --otb-chalk: #f0eee9;
-  --otb-signal: #e4326b;
+  --otb-signal: #ff5a1f;
 
   /* Grounds and support. */
   --otb-night: #0b0c0f;
@@ -39,7 +39,7 @@
   --otb-slate: #5e6673;
 
   /* Lifted for dark grounds. The base values go heavy against near-black. */
-  --otb-signal-lift: #ff5c8d;
+  --otb-signal-lift: #ff7a45;
   --otb-slate-lift: #9aa1ac;
   --otb-asphalt-lift: #eaebee;
 

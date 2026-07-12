@@ -8,7 +8,7 @@
   <circle cx="150" cy="660" r="560" fill="none" stroke="#2a2f38" stroke-width="1.5" opacity="0.55"/>
   <circle cx="150" cy="660" r="720" fill="none" stroke="#2a2f38" stroke-width="1.5" opacity="0.55"/>
   <circle cx="150" cy="660" r="880" fill="none" stroke="#2a2f38" stroke-width="1.5" opacity="0.55"/>
-  <defs><linearGradient id="sweep" x1="0.15" y1="1" x2="0.95" y2="0.1"><stop offset="0.55" stop-color="#FF5C8D" stop-opacity="0"/><stop offset="1" stop-color="#FF5C8D" stop-opacity="0.09"/></linearGradient></defs><path d="M150,660 L1055,360 A955,955 0 0,0 850,10 Z" fill="url(#sweep)"/><line x1="150" y1="660" x2="850" y2="10" stroke="#FF5C8D" stroke-width="2" opacity="0.5"/>
+  <defs><linearGradient id="sweep" x1="0.15" y1="1" x2="0.95" y2="0.1"><stop offset="0.55" stop-color="#FF7A45" stop-opacity="0"/><stop offset="1" stop-color="#FF7A45" stop-opacity="0.09"/></linearGradient></defs><path d="M150,660 L1055,360 A955,955 0 0,0 850,10 Z" fill="url(#sweep)"/><line x1="150" y1="660" x2="850" y2="10" stroke="#FF7A45" stroke-width="2" opacity="0.5"/>
   <rect x="180.00" y="150.00" width="40.00" height="40.00" fill="#1e222a" opacity="0.813907"/>
   <rect x="276.00" y="150.00" width="40.00" height="40.00" fill="#1e222a" opacity="0.831112"/>
   <rect x="372.00" y="150.00" width="40.00" height="40.00" fill="#1e222a" opacity="0.867884"/>
@@ -75,7 +75,7 @@
   <rect x="1044.00" y="630.00" width="40.00" height="40.00" fill="#171a21" opacity="0.569401"/>
   <rect x="1140.00" y="630.00" width="40.00" height="40.00" fill="#171a21" opacity="0.455173"/>
   <rect x="852.00" y="342.00" width="40.00" height="40.00" fill="#000" opacity="0.5"/>
-  <circle cx="872.0" cy="362.0" r="86" fill="none" stroke="#FF5C8D" stroke-width="1.5" opacity="0.35"/>
-  <circle cx="872.0" cy="362.0" r="130" fill="none" stroke="#FF5C8D" stroke-width="1.5" opacity="0.16"/>
-  <path d="M913.61,270.06 L967.94,283.61 L954.39,337.94 L900.06,324.39 Z" fill="#FF5C8D"/>
+  <circle cx="872.0" cy="362.0" r="86" fill="none" stroke="#FF7A45" stroke-width="1.5" opacity="0.35"/>
+  <circle cx="872.0" cy="362.0" r="130" fill="none" stroke="#FF7A45" stroke-width="1.5" opacity="0.16"/>
+  <path d="M913.61,270.06 L967.94,283.61 L954.39,337.94 L900.06,324.39 Z" fill="#FF7A45"/>
 </svg>

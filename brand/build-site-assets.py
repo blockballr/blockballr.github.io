@@ -27,7 +27,7 @@ MARK = (
     f'<svg viewBox="0 0 {W:.2f} {H:.2f}" aria-hidden="true">\n'
     f'      <g transform="translate({-X0:.4f} {-Y0:.4f})">\n'
     f'        <path d="{block_path(NORMAL)}" fill="var(--text)"/>\n'
-    f'        <path d="{tile_path(NORMAL)}" fill="var(--accent)"/>\n'
+    f'        <path d="{tile_path(NORMAL)}" fill="var(--tile)"/>\n'
     f'      </g>\n'
     f'    </svg>'
 )

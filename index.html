@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OffTheBlock</title>
-<meta name="description" content="Web3 alpha and skill-based earning. For active builders and earners only. Off the block is where it gets said before it lands.">
+<meta name="description" content="blockballr. Creative developer. A block is the settled thing, already priced in. Alpha is what has not landed on it yet. I build there.">
 <link rel="icon" href="img/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <!-- A link preview is the first thing anyone sees of this site, because the way
@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="OffTheBlock">
 <meta property="og:url" content="https://blockballr.github.io/">
 <meta property="og:title" content="OffTheBlock">
-<meta property="og:description" content="Pure signal. Zero noise. For active builders and earners only.">
+<meta property="og:description" content="Pure signal. Zero noise. The work of blockballr.">
 <meta property="og:image" content="https://blockballr.github.io/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -24,7 +24,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@blockballr">
 <meta name="twitter:title" content="OffTheBlock">
-<meta name="twitter:description" content="Pure signal. Zero noise. For active builders and earners only.">
+<meta name="twitter:description" content="Pure signal. Zero noise. The work of blockballr.">
 <meta name="twitter:image" content="https://blockballr.github.io/img/og.png">
 <meta name="theme-color" content="#0b0c0f">
 
@@ -34,12 +34,16 @@
 @font-face{font-family:"JetBrains Mono";src:url("fonts/JetBrainsMono-Variable.woff2") format("woff2-variations");font-weight:100 800;font-display:swap}
 
 :root{
-  --asphalt:#14161b; --chalk:#f0eee9; --signal:#e4326b;
+  --asphalt:#14161b; --chalk:#f0eee9; --signal:#ff5a1f;
   --night:#0b0c0f; --slate:#5e6673;
-  --signal-lift:#ff5c8d; --slate-lift:#9aa1ac;
+  --signal-lift:#ff7a45; --slate-lift:#9aa1ac; --signal-deep:#b33f0c;
 
+  /* --accent is signal as TEXT and must hold contrast; --tile is signal as a SHAPE
+     in the mark, which only has to be seen. They part company on the light theme:
+     the hot ember is 2.69 to 1 on chalk, fine for a tile, unreadable as a word. */
   --bg:var(--night); --surface:#14161b; --line:#262a31;
-  --text:var(--chalk); --dim:var(--slate-lift); --accent:var(--signal-lift);
+  --text:var(--chalk); --dim:var(--slate-lift);
+  --accent:var(--signal-lift); --tile:var(--signal-lift);
 
   --display:"Chivo",system-ui,sans-serif;
   --body:"Inter",system-ui,sans-serif;
@@ -49,7 +53,9 @@
 }
 :root[data-theme="light"]{
   --bg:var(--chalk); --surface:#fff; --line:#dbd8d1;
-  --text:var(--asphalt); --dim:var(--slate); --accent:var(--signal);
+  --text:var(--asphalt); --dim:var(--slate);
+  --accent:var(--signal-deep);   /* readable as text: 4.99 on chalk */
+  --tile:var(--signal);          /* the mark stays hot */
 }
 
 *{box-sizing:border-box}
@@ -63,7 +69,7 @@ body{
    in the accent, so the top of the page has a light source and the rest is flat. */
 body::before{
   content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
-  background:radial-gradient(680px 420px at 50% -8%, rgba(255,92,141,.13), transparent 70%);
+  background:radial-gradient(680px 420px at 50% -8%, rgba(255,122,69,.13), transparent 70%);
 }
 .wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 var(--pad)}
 
@@ -101,29 +107,18 @@ header{display:flex; align-items:center; justify-content:space-between; padding:
   color:var(--accent); margin:0 0 22px;
 }
 
-/* ---------------------------------------------------------------- panel */
-.panel{
-  border:1px solid var(--line); border-radius:10px; background:var(--surface);
-  padding:clamp(26px,4.5vw,40px); text-align:center; margin:0 auto; max-width:660px;
-}
-.panel h2{font-size:clamp(20px,3.2vw,27px)}
-.panel p{margin:14px 0 0; color:var(--dim)}
-.panel .b{color:var(--text); font-weight:600}
-.panel .fine{
-  margin-top:18px; font-family:var(--mono); font-size:12px; letter-spacing:.06em;
-  color:var(--slate); text-transform:uppercase;
-}
-
 /* ---------------------------------------------------------------- buttons */
-.cta{display:flex; flex-direction:column; gap:12px; max-width:660px; margin:22px auto 0}
+/* Side by side and sized to their words. They were full-width stacked bars, which
+   at this point in the page reads as a form to fill in rather than two links. */
+.cta{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:0 auto}
 .btn{
-  display:flex; align-items:center; justify-content:center; gap:11px;
-  padding:16px 22px; border-radius:8px; text-decoration:none;
-  font-family:var(--display); font-weight:700; font-size:16px; letter-spacing:-.01em;
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  padding:11px 18px; border-radius:7px; text-decoration:none;
+  font-family:var(--display); font-weight:700; font-size:14px; letter-spacing:-.01em;
   border:1px solid var(--line); background:var(--surface); color:var(--text);
   transition:transform .16s cubic-bezier(.2,.7,.3,1), border-color .16s, background .16s;
 }
-.btn svg{width:18px; height:18px; flex:none}
+.btn svg{width:15px; height:15px; flex:none}
 .btn:hover{transform:translateY(-2px); border-color:#3a404a}
 .btn-primary{
   background:var(--signal); border-color:var(--signal); color:#fff;
@@ -263,7 +258,7 @@ footer nav a:hover{color:var(--accent)}
     <svg viewBox="0 0 57.90 57.90" aria-hidden="true">
       <g transform="translate(36.0000 21.8955)">
         <path d="M-36,0 L-16,0 L-16,16 L0,16 L0,36 L-36,36 Z" fill="var(--text)"/>
-        <path d="M6.3708,-21.8955 L21.8955,-18.0247 L18.0247,-2.5000 L2.5000,-6.3708 Z" fill="var(--accent)"/>
+        <path d="M6.3708,-21.8955 L21.8955,-18.0247 L18.0247,-2.5000 L2.5000,-6.3708 Z" fill="var(--tile)"/>
       </g>
     </svg>
     <span class="name">OffTheBlock</span>
@@ -280,15 +275,9 @@ footer nav a:hover{color:var(--accent)}
   <h1>Before it hits <br>the <span class="off">block</span>.</h1>
   <p class="lede">
     A block is the settled thing. Public, final, already priced in.
-    Alpha is what has not landed on it yet. This is the room where it gets said first.
+    Alpha is what has not landed on it yet. I build there.
   </p>
 </section>
-
-<div class="panel">
-  <h2>Web3 alpha &amp; skill-based earning</h2>
-  <p>For active <span class="b">builders</span> and <span class="b">earners</span> only.</p>
-  <p class="fine">High integrity network</p>
-</div>
 
 <div class="cta">
   <a class="btn btn-primary" href="https://t.me/block_ballr">
@@ -297,7 +286,7 @@ footer nav a:hover{color:var(--accent)}
   </a>
   <a class="btn" href="https://twitter.com/blockballr">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93ZM17.6 20.64h2.04L6.49 3.24H4.3Z"/></svg>
-    Follow Blockballr on X
+    Follow on X
   </a>
 </div>
 
@@ -337,7 +326,7 @@ footer nav a:hover{color:var(--accent)}
     </a>
 
     <!-- NOT DEPLOYED: art in the mark's own geometry, clickable through to source -->
-    <a class="card" href="https://github.com/blockballr/Radar" target="_blank" rel="noopener">
+    <a class="card wide" href="https://github.com/blockballr/Radar" target="_blank" rel="noopener">
       <div class="art">
         <img src="img/art-radar.svg" alt="A field of blocks at rest, a sweep passing over them, and the one that is not like the others gone hot" loading="lazy">
       </div>
@@ -354,22 +343,6 @@ footer nav a:hover{color:var(--accent)}
       </div>
     </a>
 
-    <a class="card" href="https://github.com/offtheblockmain/OffTheBlockBot" target="_blank" rel="noopener">
-      <div class="art">
-        <img src="img/art-otbbot.svg" alt="A stream of messages at rest, and the one worth having pulled out of the flow" loading="lazy">
-      </div>
-      <div class="meta">
-        <h3>OffTheBlockBot <span class="tag">Source</span></h3>
-        <p>
-          The bot that runs the room. It watches the stream and pulls out the one
-          message that was worth having.
-        </p>
-        <div class="foot">
-          <div class="stack"><span>Telegram</span><span>Bot</span></div>
-          <span class="visit">GitHub &rarr;</span>
-        </div>
-      </div>
-    </a>
 
   </div>
 </section>

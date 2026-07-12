@@ -70,12 +70,11 @@ A project with no deployment has nothing to screenshot, so it gets a drawing
 instead. Those are in `img/art-*.svg` and they are generated, not stock: each one is
 the logo's own vocabulary, a field of blocks with one piece off the block, bent to
 say what that project does. Radar sweeps a field and lights the one that is not like
-the others. The bot watches a stream of messages and pulls one out. The card links
-to the source.
+the others. The card links to the source.
 
 That distinction is the point of the section. A card that says "no screenshot yet"
 is a hole in a page. A card drawn in the mark's geometry is a card, and the page
-reads as one thing rather than a live project and two apologies.
+reads as one thing rather than a live project and an apology.
 
 ## The terminal
 
@@ -119,4 +118,6 @@ Use the art card when there is only source. Add a drawing to `brand/build-art.py
 rather than reaching for a stock illustration, or the page stops being one thing.
 
 Faultline is on the profile README but is not a public repository, so it is not on
-the page. When it goes public it is one more card.
+the page. OffTheBlockBot was dropped for the same reason: the repository is under an
+org that is no longer reachable and it is empty. When either goes public under
+`blockballr`, it is one more card.
