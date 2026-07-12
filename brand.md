@@ -147,6 +147,36 @@ a fourteen degree rotation on a five pixel square rasterises to mush. The tilt
 narrows but never closes and the gap widens but never fills, because those two are
 the argument.
 
+## Motion
+
+The mark is already a before and an after. The tile starts in the notch, square and
+flush, part of the block, and it ends clear of the block and tilted. The animation is
+not a new idea laid on top of the logo, it is the interpolation between the logo's own
+two states, and the build asserts that the last frame is the mark itself.
+
+Two rules, and they are the same two rules the still mark has.
+
+The block does not move. The block is the settled thing, which is what the word means,
+and it is why the tile is the only thing in the mark that carries a tilt. Animate the
+block and the mark stops making its argument.
+
+The tile is not hinged. It turns about its own centre while it travels. Rotating it
+about the block's corner would swing it, and a swing is a hinge, and a hinge is a lid.
+This piece is not attached to anything, it came off.
+
+The departure takes 0.9 seconds on a curve that overshoots slightly, so the piece
+leaves fast, arrives, and settles a hair past where it lands. Position and rotation
+ride the same curve, so it stops turning exactly when it stops travelling. Letting
+those run on separate timings looks like two animations that happen to overlap. The
+looping version holds the piece for a beat, lets it go, and shows the empty notch
+before the next one comes off, because the empty notch is the point of the logo.
+
+The standalone files animate themselves with SMIL, because they are used inside an
+`<img>`, and an `<img>` is an isolated document that a host page's CSS cannot reach
+into. The site's inline mark uses CSS instead, so it can be switched off for a reader
+who has asked for reduced motion. SMIL cannot be, which is the whole reason the page
+does not use it.
+
 ## Voice
 
 Plain and direct. This is a room of people who can tell when they are being sold
@@ -194,6 +224,13 @@ card is the first thing anyone sees of the brand, so it is built from the geomet
 like everything else rather than being the avatar stretched to fit. It is a PNG at
 1200 by 630, because every scraper reads PNG and none of them read SVG, and it is
 referenced by an absolute URL, because none of them resolve a relative one.
+
+`brand/motion.py` is the mark in motion as numbers, the way `geometry.py` is the mark
+at rest. It holds the two states, the easing, and the timing, and it refuses to build
+if the last frame is not the still mark.
+
+`brand/build-motion.py` writes the animated logo as SVG, the social loop as GIF and
+APNG, prints the CSS the site needs, and fails if the page has drifted from it.
 
 `brand/build-site-assets.py` copies the fonts and icons the site needs, prints the
 mark's inline SVG, and fails if the copy pasted into `index.html` has drifted from

@@ -15,6 +15,8 @@ from geometry import (ASPHALT, BOX, CHALK, CIRCLE_SAFE, MICRO, NIGHT, NORMAL,
                       SIGNAL, SIGNAL_LIFT, SLATE, SLATE_LIFT, WHITE, balance,
                       block_path, centre, contrast, extent, ink, shapes, tile_path)
 
+import motion
+
 HERE = pathlib.Path(__file__).parent
 OUT = HERE.parent / "offtheblock-brand.pdf"
 CHROME = pathlib.Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
@@ -66,6 +68,24 @@ for label, a, bg in CONTRASTS:
     cls = "" if c >= 4.5 else ("warn" if c >= 3.0 else "bad")
     rows += (f'<tr><td>{label}</td><td class="n">{c:.2f}:1</td>'
              f'<td class="{cls}">{v}</td></tr>')
+
+
+def still(prog, mm=26):
+    """One frame of the departure, drawn from motion.py rather than traced."""
+    x0, y0, w, h = ink(NORMAL)
+    pts = motion.corners(NORMAL, *motion.at(NORMAL, prog))
+    tile = "M" + " L".join(f"{x:.3f},{y:.3f}" for x, y in pts) + " Z"
+    return (f'<svg viewBox="{x0:.3f} {y0:.3f} {w:.3f} {h:.3f}" '
+            f'width="{mm}mm" height="{mm}mm" style="background:{NIGHT}">'
+            f'<path d="{block_path(NORMAL)}" fill="{CHALK}"/>'
+            f'<path d="{tile}" fill="{SIGNAL_LIFT}"/></svg>')
+
+
+FRAMES = "".join(
+    f'<div style="text-align:center">{still(p)}'
+    f'<div class="dim mono" style="font-size:7pt;margin-top:1.5mm">'
+    f'{p * motion.DURATION:.2f}s</div></div>'
+    for p in (0.0, 0.08, 0.18, 0.35, 0.65, 1.0))
 
 HTML = f"""<!doctype html><meta charset="utf-8"><title>OffTheBlock brand</title>
 <style>
@@ -429,9 +449,57 @@ td.bad{{color:#c0392b}}
   <p>Give the mark clear space on every side equal to the tile's width.</p>
 </div>
 
+<!-- ============================================================= motion -->
+<div class="page">
+  <p class="kicker">07 &middot; Motion</p>
+  <h2>The piece comes off</h2>
+  <div class="rule"></div>
+
+  <p>The mark is already a before and an after. The tile starts in the notch, square
+  and flush, and it ends clear of the block and tilted. The animation is not a new
+  idea laid over the logo: it is the interpolation between the logo's own two states,
+  and the last frame is asserted at build time to be the mark itself.</p>
+
+  <div style="display:flex;gap:4mm;justify-content:space-between;margin:7mm 0">
+    {FRAMES}
+  </div>
+
+  <h3>The block does not move</h3>
+  <p>The block is the settled thing. That is what the word means, and it is why the
+  tile is the only thing in the mark carrying a tilt. Animate the block and the mark
+  stops making its argument. Nothing may move but the piece that left.</p>
+
+  <h3>It is not hinged</h3>
+  <p>The tile turns about its own centre while it travels. Rotating it about the
+  block's corner would swing it, and a swing is a hinge, and a hinge is a lid. This
+  piece is not attached to anything. It came off.</p>
+
+  <h3>The numbers</h3>
+  <p class="mono" style="font-size:9pt">
+  from ({motion.start(NORMAL)[0][0]:.2f}, {motion.start(NORMAL)[0][1]:.2f}) at 0deg,
+  in the notch<br>
+  to ({motion.end(NORMAL)[0][0]:.2f}, {motion.end(NORMAL)[0][1]:.2f}) at
+  {motion.end(NORMAL)[1]:.0f}deg, off the block<br>
+  {motion.DURATION}s, cubic-bezier({", ".join(f"{v:g}" for v in motion.EASE)})<br>
+  loop: {motion.DURATION}s out, {motion.HOLD}s held, {motion.FADE}s gone,
+  {motion.BEAT}s empty
+  </p>
+  <p>Position and rotation ride the same curve, so the piece stops turning exactly
+  when it stops travelling. The ease overshoots a little: it leaves fast, arrives, and
+  settles a hair past where it lands. A linear travel reads as a machine moving a
+  part, not as something coming loose.</p>
+
+  <h3>Where each file goes</h3>
+  <p>The standalone SVGs animate themselves with SMIL, because they get used inside an
+  <code>&lt;img&gt;</code>, and an <code>&lt;img&gt;</code> is an isolated document a
+  host page's CSS cannot reach into. The site's inline mark uses CSS instead, so it
+  can be switched off for a reader who has asked for reduced motion. SMIL cannot be,
+  which is the whole reason the page does not use it.</p>
+</div>
+
 <!-- ============================================================= rules -->
 <div class="page">
-  <p class="kicker">07 &middot; Voice and rules</p>
+  <p class="kicker">08 &middot; Voice and rules</p>
   <h2>How it talks</h2>
   <div class="rule"></div>
 
@@ -454,12 +522,13 @@ td.bad{{color:#c0392b}}
     <li>One colour? Use the mono file, and let the notch and the gap carry it.</li>
     <li>Signal goes in one place at a time. It is the alpha, not an accent.</li>
     <li>Never draw semantic colour out of signal.</li>
+    <li>In motion, only the tile moves. The block is settled; that is the point.</li>
   </ul>
 
   <div class="rule" style="margin-top:9mm"></div>
   <p class="dim mono" style="font-size:8pt">Every figure in this guide is read from
-  brand/geometry.py at build time. Change the mark and the guide changes
-  with it. Rebuild: python brand/build-guide.py</p>
+  brand/geometry.py and brand/motion.py at build time. Change the mark and the guide
+  changes with it. Rebuild: python brand/build-guide.py</p>
 </div>
 """
 
