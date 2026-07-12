@@ -122,10 +122,20 @@ The reset is the one piece of sleight of hand: the tile snaps back into its notc
 while its opacity is zero. Animating it home would show a piece returning to the
 block, which is the opposite of what the mark says.
 
-The standalone animated files are in `brand/logo` (SVG, self-animating, usable in an
-`<img>`) and `brand/motion` (a GIF and an APNG of the loop, for posting). Only the
-tile ever moves. The block is the settled thing, and that is the entire argument of
-the logo.
+The standalone animated files are in `brand/logo` as SVG, which animate themselves and
+work inside an `<img>`, and in `brand/motion` as raster loops for posting. Each raster
+loop comes on both grounds, `-dark` on night and `-light` on chalk, in three formats:
+GIF for anywhere that eats a GIF, APNG where real alpha matters, and MP4 for anywhere
+that wants video. MP4 has no alpha channel, which is the whole reason the light
+version exists: a dark loop dropped on a white slide is a black box with a logo in it.
+
+The MP4 carries three cycles rather than one, because a lot of players show a short
+clip once and stop, and a single cycle that plays once reads as a glitch rather than a
+loop. ffmpeg comes from the `imageio-ffmpeg` package rather than the system, so this
+builds with no ffmpeg installed.
+
+Only the tile ever moves. The block is the settled thing, and that is the entire
+argument of the logo.
 
 ## Adding a project
 

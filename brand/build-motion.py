@@ -2,18 +2,23 @@
 
     python brand/build-motion.py
 
-Writes the animated logo as SVG, the social loop as GIF and APNG, and prints the CSS
-the site needs, then checks the site still matches it.
+Writes the animated logo as SVG, the loop as GIF, APNG and MP4, and prints the CSS the
+site needs, then checks the site still matches it.
 
 Everything here samples motion.py, which samples geometry.py. There is one animation
-of this logo, expressed three times because three players need three formats, and the
-build fails if the last frame stops being the mark.
+of this logo, expressed in several formats because several players need several
+formats, and the build fails if the last frame stops being the mark.
 
   offtheblock-mark-motion.svg          plays once and stops on the logo
   offtheblock-mark-motion-knockout.svg the same, for dark grounds
   offtheblock-mark-loop.svg            loops: a piece comes off, and another
-  motion/offtheblock-loop.gif          the loop, for anywhere that eats a GIF
-  motion/offtheblock-loop.png          the same as APNG, which has real alpha
+  motion/offtheblock-loop-dark.gif     the loop on the night ground
+  motion/offtheblock-loop-dark.png     the same as APNG, which has real alpha
+  motion/offtheblock-loop-dark.mp4     the same as H.264, three cycles
+  motion/offtheblock-loop-light.*      all three again, on chalk
+
+Two grounds because the loop gets dropped onto both, and MP4 has no alpha channel to
+fall back on: a dark loop on somebody's white slide is a black box with a logo in it.
 
 The SVGs use SMIL rather than CSS, because these files get used inside an <img>, and
 an <img> is an isolated document: a CSS animation defined by the host page cannot
@@ -22,6 +27,7 @@ case and uses CSS, so it can be turned off for a reader who asked for less motio
 """
 import math
 import pathlib
+import subprocess
 
 from PIL import Image, ImageDraw
 
@@ -37,6 +43,7 @@ SPEC = NORMAL
 SAMPLES = 32          # how finely the ease is baked into the SVG's value list
 FPS = 20
 PX = 512              # the raster loop's size
+MP4_REPEATS = 3       # players that show a short clip once need more than one cycle
 
 worst = motion.check(SPEC)
 X0, Y0, W, H = ink(SPEC)
@@ -136,7 +143,7 @@ def rgb(h):
     return tuple(int(h[i:i + 2], 16) for i in (1, 3, 5))
 
 
-def frames():
+def frames(ground, block, signal):
     """Draw the loop with Pillow. Supersampled 4x, because the tile is a rotated
     square and an aliased diagonal is the one thing that makes a logo look cheap."""
     ss, pad = 4, 0.84
@@ -152,9 +159,9 @@ def frames():
     out = []
     for i in range(n):
         t = i / n * motion.LOOP
-        im = Image.new("RGBA", (size, size), rgb(NIGHT) + (255,))
+        im = Image.new("RGBA", (size, size), rgb(ground) + (255,))
         d = ImageDraw.Draw(im)
-        d.polygon([to_px(p) for p in motion.block_points(SPEC)], fill=rgb(CHALK))
+        d.polygon([to_px(p) for p in motion.block_points(SPEC)], fill=rgb(block))
 
         if t <= motion.DURATION:
             p = t / motion.DURATION
@@ -170,29 +177,79 @@ def frames():
             tile = Image.new("RGBA", (size, size), (0, 0, 0, 0))
             ImageDraw.Draw(tile).polygon(
                 [to_px(p2) for p2 in motion.corners(SPEC, *motion.at(SPEC, p))],
-                fill=rgb(SIGNAL_LIFT) + (a,))
+                fill=rgb(signal) + (a,))
             im = Image.alpha_composite(im, tile)
         out.append(im.resize((PX, PX), Image.LANCZOS))
     return out
 
 
+def mp4(fr, out, repeats=MP4_REPEATS):
+    """Encode the loop as H.264.
+
+    ffmpeg comes from the imageio-ffmpeg wheel rather than the system, so this builds
+    on a machine with no ffmpeg installed and no admin rights, which is the machine
+    this was built on.
+
+    The frames are repeated, because a lot of players show a short clip once and stop.
+    A single 2.9s cycle that plays once reads as a glitch; three of them read as a
+    loop, which is what it is. yuv420p and even dimensions are not taste: Safari and
+    every phone will refuse to decode anything else.
+    """
+    import imageio_ffmpeg
+    exe = imageio_ffmpeg.get_ffmpeg_exe()
+    tmp = HERE / ".render" / "mp4"
+    tmp.mkdir(parents=True, exist_ok=True)
+    for f in tmp.glob("*.png"):
+        f.unlink()
+    i = 0
+    for _ in range(repeats):
+        for im in fr:
+            im.convert("RGB").save(tmp / f"{i:05d}.png")
+            i += 1
+    assert PX % 2 == 0, "H.264 needs even dimensions"
+    subprocess.run(
+        [exe, "-y", "-loglevel", "error", "-framerate", str(FPS),
+         "-i", str(tmp / "%05d.png"),
+         "-c:v", "libx264", "-preset", "slow", "-crf", "18",
+         "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(out)],
+        check=True, timeout=300)
+    for f in tmp.glob("*.png"):
+        f.unlink()
+    return i
+
+
 OUT.mkdir(parents=True, exist_ok=True)
-fr = frames()
 ms = round(1000 / FPS)
 
-fr[0].convert("RGB").save(OUT / "offtheblock-loop.gif", save_all=True,
-                          append_images=[f.convert("RGB") for f in fr[1:]],
-                          duration=ms, loop=0, optimize=True)
-fr[0].save(OUT / "offtheblock-loop.png", save_all=True, append_images=fr[1:],
-           duration=ms, loop=0)
+# Two grounds, because the loop gets dropped onto both. The dark one is the default
+# and the one that goes anywhere the brand controls the background; the light one
+# exists so it can sit on somebody else's white slide without a black box round it.
+GROUNDS = [
+    ("dark", NIGHT, CHALK, SIGNAL_LIFT),
+    ("light", CHALK, ASPHALT, SIGNAL),
+]
 
-gif_kb = (OUT / "offtheblock-loop.gif").stat().st_size / 1024
-png_kb = (OUT / "offtheblock-loop.png").stat().st_size / 1024
-# X will not autoplay a GIF over 15MB and Telegram is slower for every byte, so this
-# is checked rather than hoped for.
-assert gif_kb < 4096, f"the loop is {gif_kb:.0f} KB, too heavy to post"
-print(f"  motion/offtheblock-loop.gif  {len(fr)} frames, {PX}px, {gif_kb:.0f} KB")
-print(f"  motion/offtheblock-loop.png  APNG, {png_kb:.0f} KB")
+for name, ground, block, signal in GROUNDS:
+    fr = frames(ground, block, signal)
+    stem = f"offtheblock-loop-{name}"
+
+    fr[0].convert("RGB").save(OUT / f"{stem}.gif", save_all=True,
+                              append_images=[f.convert("RGB") for f in fr[1:]],
+                              duration=ms, loop=0, optimize=True)
+    fr[0].save(OUT / f"{stem}.png", save_all=True, append_images=fr[1:],
+               duration=ms, loop=0)
+    n = mp4(fr, OUT / f"{stem}.mp4")
+
+    gif_kb = (OUT / f"{stem}.gif").stat().st_size / 1024
+    png_kb = (OUT / f"{stem}.png").stat().st_size / 1024
+    mp4_kb = (OUT / f"{stem}.mp4").stat().st_size / 1024
+    # X will not autoplay a GIF over 15MB and Telegram is slower for every byte, so
+    # this is checked rather than hoped for.
+    assert gif_kb < 4096, f"{stem}.gif is {gif_kb:.0f} KB, too heavy to post"
+    print(f"  motion/{stem}.gif  {len(fr)} frames, {PX}px, {gif_kb:.0f} KB")
+    print(f"  motion/{stem}.png  APNG, {png_kb:.0f} KB")
+    print(f"  motion/{stem}.mp4  H.264, {n} frames "
+          f"({MP4_REPEATS} x {motion.LOOP:g}s), {mp4_kb:.0f} KB")
 
 
 # ------------------------------------------------------------------ the site
