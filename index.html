@@ -218,6 +218,20 @@ header{display:flex; align-items:center; justify-content:space-between; padding:
   transition:color .2s;
 }
 
+/* The lead project. Exactly one card carries this at a time: a second featured
+   card is a featured card that has stopped saying anything. It is the only place
+   in the section signal is spent, which is what makes it the thing read first. */
+.feature{border-color:rgba(255,122,69,.32)}
+.feature:hover{border-color:var(--tile)}
+.feature .meta{padding:26px 26px 28px}
+.feature .meta h3{font-size:clamp(21px,3.2vw,27px)}
+.feature .meta p{font-size:16px; max-width:62ch}
+.flag{
+  display:block; font-family:var(--mono); font-size:11px;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--accent);
+  margin:0 0 10px;
+}
+
 /* ---------------------------------------------------------------- terminal */
 .term{
   margin:clamp(64px,10vw,110px) auto 0; max-width:720px;
@@ -322,8 +336,34 @@ footer nav a:hover{color:var(--accent)}
 
   <div class="grid">
 
+    <!-- THE LEAD: live, and the one the page is currently for -->
+    <a class="card wide feature" href="https://divvyplay.club" target="_blank" rel="noopener">
+      <div class="chrome">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div class="bar">divvyplay.club</div>
+        <span class="live">Live</span>
+      </div>
+      <div class="frame">
+        <img class="shot" src="img/divvy.png" alt="Divvy: the disc-and-wedge mark, and the call to enter a World Cup match" loading="lazy" width="1760" height="1100">
+      </div>
+      <div class="meta">
+        <span class="flag">Latest</span>
+        <h3>Divvy <span class="tag">Live</span></h3>
+        <p>
+          A second-screen game for the World Cup. While the match runs it puts a coupon
+          of quick calls in front of you, higher or lower, yes or no, and each one goes
+          into a shared pot that divvies among whoever was right. The provable calls
+          settle against TxLINE's signed, on-chain-anchored match data. Free to play.
+        </p>
+        <div class="foot">
+          <div class="stack"><span>TypeScript</span><span>React</span><span>Node</span><span>TxLINE</span><span>Solana</span></div>
+          <span class="visit">Play &rarr;</span>
+        </div>
+      </div>
+    </a>
+
     <!-- LIVE: a real preview window, clickable through to the deployment -->
-    <a class="card wide" href="https://handgloss.vercel.app" target="_blank" rel="noopener">
+    <a class="card" href="https://handgloss.vercel.app" target="_blank" rel="noopener">
       <div class="chrome">
         <div class="dots"><i></i><i></i><i></i></div>
         <div class="bar">handgloss.vercel.app</div>
@@ -346,7 +386,7 @@ footer nav a:hover{color:var(--accent)}
     </a>
 
     <!-- NOT DEPLOYED: art in the mark's own geometry, clickable through to source -->
-    <a class="card wide" href="https://github.com/blockballr/Radar" target="_blank" rel="noopener">
+    <a class="card" href="https://github.com/blockballr/Radar" target="_blank" rel="noopener">
       <div class="art">
         <img src="img/art-radar.svg" alt="A field of blocks at rest, a sweep passing over them, and the one that is not like the others gone hot" loading="lazy">
       </div>

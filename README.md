@@ -61,12 +61,19 @@ The hero is the brand line, "Before it hits the block", which explains the name,
 a first-person lede. This is one person's site, not a community's, so there is no
 panel selling a room to join: just the work, and two ways to reach him.
 
-The work section is driven by what is actually public on GitHub, and it treats a
+The work section leads with one project and then shows the rest. The lead is Divvy,
+live at divvyplay.club: it runs full width at the top of the grid, carries the
+"Latest" flag and a signal-tinted border, and it is the only card in the section that
+gets any signal at all. That is the whole mechanism, and it only works while exactly
+one card has it. Give a second card the `feature` class and neither of them is
+featured any more.
+
+Below the lead, the section is driven by what is actually public, and it treats a
 shipped project and an unshipped one differently on purpose.
 
 A project with a deployment gets a preview window: a browser frame with a real
 screenshot of the running app, a live badge, and the whole card is a link through to
-it. HandGloss is the only one of these today.
+it. Divvy and HandGloss are these today.
 
 A project with no deployment has nothing to screenshot, so it gets a drawing
 instead. Those are in `img/art-*.svg` and they are generated, not stock: each one is
@@ -144,7 +151,13 @@ The cards are plain HTML in the `.grid`. Copy a card and change it.
 Use the preview-window card when there is a URL to open, and put a real screenshot
 in `img/`. Capture one with:
 
-    chrome --headless=new --screenshot=img/name.png --window-size=1280,800 <url>
+    chrome --headless=new --force-device-scale-factor=2 --window-size=1280,800 --screenshot=img/name.png <url>
+
+The frame is 16 by 10 and the shot is cropped to fill it, so capture at that ratio or
+lose the edges. Match the viewport to how the app is actually built: Divvy is a
+phone-shaped app, so a 1280-wide capture is a small app floating in a large empty
+page. It is shot at 880 by 550 instead, where the app fills the frame. The point of
+the preview is that the project is real, and that only lands if it is legible.
 
 Use the art card when there is only source. Add a drawing to `brand/build-art.py`
 rather than reaching for a stock illustration, or the page stops being one thing.
