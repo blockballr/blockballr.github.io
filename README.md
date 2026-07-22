@@ -73,7 +73,7 @@ shipped project and an unshipped one differently on purpose.
 
 A project with a deployment gets a preview window: a browser frame with a real
 screenshot of the running app, a live badge, and the whole card is a link through to
-it. Divvy and HandGloss are these today.
+it. Divvy, Monk, and HandGloss are these today.
 
 A project with no deployment has nothing to screenshot, so it gets a drawing
 instead. Those are in `img/art-*.svg` and they are generated, not stock: each one is
