@@ -169,6 +169,31 @@ Three colourways, at 1920x1080 and 3840x2160: `burnt` is the deep signal and is 
 one, `ember` is the hot signal and is louder, `mono` is a stone extrusion for a
 screen you have to work on top of.
 
+## OTB-01
+
+`brand/build-ship.py` draws a concept sheet for a ship. It is not a brand asset and
+does not pretend to be one. It is here because the hull is the mark at vehicle
+scale: a block with a square notch bitten out of its top-forward corner, and the
+piece that came out flying clear of it, tilted, ahead of the bow rather than behind
+it, because the line the identity runs on is about what has not landed yet.
+
+The bite only reads if the corner that is gone can be inferred from the hull that
+survived it. That is why the forward hull sits a full notch below the bay floor:
+bring it up near the floor and the two edges that imply the missing corner shrink
+to nothing, and what is left is a recessed panel on the end of a superstructure.
+The same two edges are carried on as construction lines to where they would have
+met, which is the drafting way of saying the same thing.
+
+The tender is not positioned by eye. It is the solve `place()` already does for the
+tile, run at hull scale, so the daylight is generated rather than chosen and the
+dimension on the sheet is read out of it. The build asserts that the piece's nearest
+vertex lands exactly one gap clear of the corner, because that is the property the
+solve exists to guarantee and an assertion is cheaper than finding out later.
+
+It is drawn twice, which is ordinary drafting and also the argument: dashed, in the
+bay it came out of, and solid, clear of it. It is the only tilted object on the
+sheet and the only filled one.
+
 ## Adding a project
 
 The cards are plain HTML in the `.grid`. Copy a card and change it.
