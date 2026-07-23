@@ -144,6 +144,31 @@ builds with no ffmpeg installed.
 Only the tile ever moves. The block is the settled thing, and that is the entire
 argument of the logo.
 
+## The wallpaper
+
+`brand/build-wallpaper.py` draws a desktop background from the same geometry. The
+mark repeats across the canvas as a tone-on-tone emboss, and the handle is projected
+onto the isometric ground plane and extruded into a solid. Nothing on the site uses
+it; it is here because it is built from `geometry.py` like everything else.
+
+The emboss is geometry, not a filter. It is three copies of the same stroked
+outline, the highlight thrown up and left, the shadow down and right, and the ground
+colour laid over the middle so the other two survive only as slivers along either
+edge. A lighting filter on a near-flat colour is unpredictable and goes muddy at
+size; this does not.
+
+The 30 degree rise is the format's, not a preference. A 16 by 9 rectangle has a
+diagonal of 29.36 degrees and true isometric is 30, so a word laid along one
+isometric axis runs corner to corner on a widescreen canvas almost exactly.
+
+It renders at twice the target size and resamples down. The walls of the extrusion
+are a stack of hairlines one device pixel apart and the emboss is a pair of them,
+and neither survives being rasterised once at final size.
+
+Three colourways, at 1920x1080 and 3840x2160: `burnt` is the deep signal and is the
+one, `ember` is the hot signal and is louder, `mono` is a stone extrusion for a
+screen you have to work on top of.
+
 ## Adding a project
 
 The cards are plain HTML in the `.grid`. Copy a card and change it.

@@ -232,6 +232,12 @@ if the last frame is not the still mark.
 `brand/build-motion.py` writes the animated logo as SVG, the social loop as GIF and
 APNG, prints the CSS the site needs, and fails if the page has drifted from it.
 
+`brand/build-wallpaper.py` draws the desktop wallpaper: the mark repeated as a
+tone-on-tone emboss on beige, and the handle projected onto the isometric ground
+plane and extruded into a solid. It is the one asset here that nothing else
+consumes, and it is generated rather than drawn for the same reason as the rest, so
+the mark in the field is the real mark.
+
 `brand/build-site-assets.py` copies the fonts and icons the site needs, prints the
 mark's inline SVG, and fails if the copy pasted into `index.html` has drifted from
 `geometry.py`.
